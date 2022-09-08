@@ -108,7 +108,7 @@ class BlackScholesModel(BaseModel):
         else:            
             return 1          
     
-    ## https://quant.stackexchange.com/questions/18684/heston-model-option-price-formula
+    
     def __modelVanillaCallPrice(self,K,T,sens = 1):
         
         F = self.marketObj.forwardSpot(T)
@@ -116,9 +116,9 @@ class BlackScholesModel(BaseModel):
         sigma = self.sigma()
         
         if sens == 1:            
-            return BS.BS_CALL(D,F, K, sigma,T)
+            return BS_CALL(D,F, K, sigma,T)
         else:            
-            return BS.BS_PUT(D,F, K, sigma,T) 
+            return BS_PUT(D,F, K, sigma,T) 
         
     def constraints(self):        
         return ()       
