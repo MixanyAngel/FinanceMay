@@ -2,7 +2,6 @@ import numpy as np
 from scipy.stats import norm
 from scipy.optimize import minimize_scalar   
 import pandas as pd
-import pandas_datareader.data as web
 import datetime as dt
 N = norm.cdf
 import enum 
