@@ -34,7 +34,7 @@ class BarrierOptionPricer(BasePricer):
             self.eventBarrierTouched = pd.DataFrame(eventCoupon,columns=[product.maturity]) ### 1
             self.eventRebate = pd.DataFrame(1-eventCoupon)
         
-        elif product.typeBarrier == TypeBarrier.DownAndIn:    
+        elif product.typeBarrier == TypeBarrier.DownAndIn:             
             eventCoupon  = (eventCoupon.min(axis = 1) <= product.BarrierLevel)*1 
             #print(eventCoupon)
             self.eventBarrierTouched = pd.DataFrame(eventCoupon,columns=[product.maturity]) ### 1

@@ -132,9 +132,11 @@ class GenerateMCSensi:
         return pd.DataFrame.from_dict(dictRes).set_index(['Spot'])
 
 
-def smoothData(xdata,ydata):
+def smoothData(xdata,ydata,isSmoothing):
     
-    #return xdata,ydata
+    if not isSmoothing:
+        return xdata,ydata
+    
     f_cubic = interp1d(xdata, ydata, kind='cubic')
     
     xnew = np.linspace(min(xdata), max(xdata), 300) 
@@ -143,7 +145,7 @@ def smoothData(xdata,ydata):
     
     return xnew,data_smooth
     
-def mcSensiPlot(resSensi):
+def mcSensiPlot(resSensi,isSmoothing = True):
     
     import warnings
     warnings.filterwarnings("ignore")
@@ -154,36 +156,36 @@ def mcSensiPlot(resSensi):
     fig, axs = plt.subplots(2, 4,constrained_layout = True)
     fig.suptitle('Price and Greeks')
     
-    xnew,ynew = smoothData(x,resSensi.Price.values)
+    xnew,ynew = smoothData(x,resSensi.Price.values,isSmoothing)
     
     axs[0, 0].plot(xnew, ynew)
     axs[0, 0].set_title('Price')    
     
-    xnew,ynew = smoothData(x,resSensi.Delta.values)
+    xnew,ynew = smoothData(x,resSensi.Delta.values,isSmoothing)
     axs[0, 1].plot(xnew, ynew, 'tab:orange')
     axs[0, 1].set_title('Delta')
     
-    xnew,ynew = smoothData(x,resSensi.Vega.values)
+    xnew,ynew = smoothData(x,resSensi.Vega.values,isSmoothing)
     axs[0, 2].plot(xnew, ynew, 'tab:red')
     axs[0, 2].set_title('Vega')
     
-    xnew,ynew = smoothData(x,resSensi.Vanna.values)
+    xnew,ynew = smoothData(x,resSensi.Vanna.values,isSmoothing)
     axs[1, 0].plot( xnew,ynew,'tab:brown')
     axs[1, 0].set_title('Vanna')
     
-    xnew,ynew = smoothData(x,resSensi.Gamma.values)
+    xnew,ynew = smoothData(x,resSensi.Gamma.values,isSmoothing)
     axs[1, 1].plot(xnew,ynew, 'tab:green')
     axs[1, 1].set_title('Gamma')    
 
-    xnew,ynew = smoothData(x,resSensi.Vomma.values)
+    xnew,ynew = smoothData(x,resSensi.Vomma.values,isSmoothing)
     axs[1, 2].plot(xnew,ynew,'tab:purple')
     axs[1, 2].set_title('Vomma')
     
-    xnew,ynew = smoothData(x,resSensi.Rho.values)
+    xnew,ynew = smoothData(x,resSensi.Rho.values,isSmoothing)
     axs[0, 3].plot(xnew,ynew, 'tab:cyan')
     axs[0, 3].set_title('Rho')
     
-    xnew,ynew = smoothData(x,resSensi.RepoSensi.values)
+    xnew,ynew = smoothData(x,resSensi.RepoSensi.values,isSmoothing)
     axs[1, 3].plot(xnew,ynew, 'y')
     axs[1, 3].set_title('RepoSensi')
     
