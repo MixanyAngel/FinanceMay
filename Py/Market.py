@@ -65,10 +65,10 @@ class Market:
         
         return newMarket
     
-    def shockVol(self,epsilonShock,isRelative = True):
+    def shockVol(self,epsilonShock,isRelative = False):
         
         funcRel = (lambda K,T : self.volKT(K,T)*(1.0+epsilonShock))
-        funcAbs = (lambda K,T : self.volKT(K,T)+epsilonShock)
+        funcAbs = (lambda K,T : np.maximum(self.volKT(K,T)+epsilonShock,0))
         
         newMarket = self.__copyRef()
         newMarket.volKT = funcRel if isRelative else funcAbs      

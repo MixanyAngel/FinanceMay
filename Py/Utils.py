@@ -14,6 +14,7 @@ class Frequency(enum.Enum):
     TriDaily = 9
     QuaterDaily = 10
     Refined = 11 ## 4 times a day
+    AtMaturity = 12
     
 
 def getNbStepInAyear(frequency = Frequency.Weekly):

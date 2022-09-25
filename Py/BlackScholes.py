@@ -45,9 +45,14 @@ class BlackScholesModel(BaseModel):
       
         refNb = int(tmp*T)
     
-        dt_tmp = T/refNb
-        
-        steps = [ i*dt_tmp for i in range(refNb+1)]
+        if refNb == 0:
+            steps = []
+            steps.append(0.0)
+            steps.append(T)
+        else:
+            dt_tmp = T/refNb        
+            steps = [ i*dt_tmp for i in range(refNb+1)]
+            
         steps.extend(listT)
         steps = list(sorted(list(set(steps))))  
         
